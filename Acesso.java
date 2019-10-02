@@ -47,14 +47,14 @@ public class Acesso {
 			quantidadeMinutos = 0;
 		}
 		
-		float valorTotal = 0; 
-		valorTotal += quantidadeHoras * VALOR_HORA;
-		valorTotal += Math.ceil(quantidadeMinutos / 15.0) * VALOR_FRACAO;		
+		final float valorTotal = 0; 
+		final float valorHora = valorTotal + quantidadeHoras * VALOR_HORA;
+		float valorFracao = (float) (valorHora + Math.ceil(quantidadeMinutos / 15.0) * VALOR_FRACAO);		
 		
 		if (quantidadeHoras >=9)
 			return VALOR_DIARIA;
 		else 
-			return valorTotal;
+			return valorFracao;
 	}
 	
 	
