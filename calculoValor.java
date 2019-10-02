@@ -5,8 +5,7 @@ public class calculoValor {
 	int quantidadeHoras,
 		quantidadeMinutos;
 	
-	float valorTotal,
-		  valorHora,
+	float valorHora,
 		  valorFracao;
 	
 	public calculoValor(Acesso source) {
@@ -14,16 +13,15 @@ public class calculoValor {
 	}
 	
 	public float computar() {
-		quantidadeHoras = calculoQtdHoras(); 
-				
-		if (source.horaSaida == source.horaEntrada)
+						
+		if (source.horaSaida == source.horaEntrada) {
 			quantidadeMinutos = calculoQtdMinutos();
+			quantidadeHoras = calculoQtdHoras(); 
+		}
 		else if (saidaEhMaiorEntrada() && source.minutosEntrada == source.minutosSaida){
 			quantidadeMinutos = 0;
 			quantidadeHoras = calculoQtdHoras();
 		}
-		else if (saidaEhMaiorEntrada() && entradaEhMaiorSaida()) 
-			quantidadeMinutos = calculoQtdMinutos();
 		else if (saidaEhMaiorEntrada() &&  entradaEhMaiorSaida()){
 			quantidadeMinutos = calculoQtdMinutos() + 60;
 			quantidadeHoras = calculoQtdHoras() - 1;
@@ -33,8 +31,7 @@ public class calculoValor {
 			quantidadeMinutos = 0;
 		}
 		
-		valorTotal = 0; 
-		valorHora = valorTotal + quantidadeHoras * source.VALOR_HORA;
+		valorHora = quantidadeHoras * source.VALOR_HORA;
 		valorFracao = (float) (valorHora + Math.ceil(quantidadeMinutos / 15.0) * source.VALOR_FRACAO);		
 		
 		if (quantidadeHoras >=9)
