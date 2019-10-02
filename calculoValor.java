@@ -14,19 +14,19 @@ public class calculoValor {
 	}
 	
 	public float computar() {
-		quantidadeHoras = source.horaSaida - source.horaEntrada; 
+		quantidadeHoras = calculoQtdHoras(); 
 				
 		if (source.horaSaida == source.horaEntrada)
-			quantidadeMinutos = source.minutosSaida - source.minutosEntrada;
-		else if (source.horaSaida > source.horaEntrada && source.minutosEntrada == source.minutosSaida){
+			quantidadeMinutos = calculoQtdMinutos();
+		else if (saidaEhMaiorEntrada() && source.minutosEntrada == source.minutosSaida){
 			quantidadeMinutos = 0;
-			quantidadeHoras = source.horaSaida - source.horaEntrada;
+			quantidadeHoras = calculoQtdHoras();
 		}
-		else if (source.horaSaida > source.horaEntrada && source.minutosEntrada > source.minutosSaida) 
-			quantidadeMinutos = source.minutosSaida - source.minutosEntrada;
-		else if (source.horaSaida > source.horaEntrada && source.minutosSaida < source.minutosEntrada){
-			quantidadeMinutos = source.minutosSaida + (60 - source.minutosEntrada);
-			quantidadeHoras = source.horaSaida - source.horaEntrada - 1;
+		else if (saidaEhMaiorEntrada() && entradaEhMaiorSaida()) 
+			quantidadeMinutos = calculoQtdMinutos();
+		else if (saidaEhMaiorEntrada() &&  entradaEhMaiorSaida()){
+			quantidadeMinutos = calculoQtdMinutos() + 60;
+			quantidadeHoras = calculoQtdHoras() - 1;
 		}
 		else {
 			quantidadeHoras = 0;
@@ -41,5 +41,21 @@ public class calculoValor {
 			return source.VALOR_DIARIA;
 		else 
 			return valorFracao;
+	}
+
+	private boolean entradaEhMaiorSaida() {
+		return source.minutosEntrada > source.minutosSaida;
+	}
+
+	private boolean saidaEhMaiorEntrada() {
+		return source.horaSaida > source.horaEntrada;
+	}
+
+	private int calculoQtdMinutos() {
+		return source.minutosSaida - source.minutosEntrada;
+	}
+
+	private int calculoQtdHoras() {
+		return source.horaSaida - source.horaEntrada;
 	}
 }
